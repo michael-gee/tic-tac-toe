@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+/* BODY */
+body {
+  margin: 0;
+  font-size: 62.5%;
+  text-align:center;
+  font-family: "Raleway", arial, serif;
+}
+
+/* HEADINGS */
+h1 {
+  font-size: 4em;
+}
+h2 {
+  margin: 0;
+  color: white;
+  font-size: 3em;
+  padding-top: 75px;
+}
+h3 {
+  font-size: 2.5em;
+}
+
+h3 a {
+  color: #193028;
+  text-decoration: none;
+}
+
+h3 a:visted {
+  color: #193028;
+  text-decoration: none;
+}
+
+h3 a:hover {
+  color: red;
+}
+
+
+/* TIC TAC TOE BOARD */
+.tttOuterBox {
+  height: 490px;
+  width: 550px;
+  background-color: #F0B487;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+.tttInnerBox {
+  height: 455px;
+  width: 500px;
+  background-color: #193028;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+/* RESET BUTTON  */
+#reset {
+  font-size: 2em;
+  float: right;
+  margin-right: 45px;
+  margin-top: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+#reset:hover {
+  cursor: pointer;
+  border: 2px dashed black;
+  border-radius: 15px;
+}
+
+/* PLAYER OPTIONS */
+.player-options {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.option-one, .option-two {
+  color: grey;
+  font-size: 2.5em;
+  padding: 15px;
+  margin-top: 50px;
+}
+.option-one {
+  float: left;
+}
+.option-two {
+  float: left;
+}
+
+.option-one:hover, .option-two:hover {
+  color: white;
+  cursor: pointer;
+  border: 3px dashed white;
+  border-radius: 50px;
+}
+
+#back-button {
+  width: 100px;
+  padding: 10px;
+  margin: 0 auto;
+  clear: both;
+  color: grey;
+  text-align: center;
+  margin-top: 150px;
+  font-size: 2.5em;
+}
+#back-button:hover {
+  color: white;
+  cursor: pointer;
+  border: 3px dashed white;
+  border-radius: 50px;
+}
+
+/* GAME BOARD */
+#game-board {
+  padding-top: 5px;
+}
+
+.row {
+  width: 450px;
+  height:145px;
+  margin: 0 auto;
+}
+
+.square {
+  width: 146px;
+  height: 145px;
+  float: left;
+  cursor: pointer;
+}
+
+#square1, #square2, #square3, #square4, #square5, #square6 {
+  border-bottom: 5px solid #E2E6E4;
+}
+
+#square1, #square2, #square4, #square5, #square7, #square8 {
+  border-right: 5px solid #E2E6E4;
+}
+
+/* DISPLAY NONE */
+.none {
+  display: none;
+}

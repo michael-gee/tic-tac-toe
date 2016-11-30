@@ -36,6 +36,26 @@ h3 a:hover {
   color: red;
 }
 
+/* PLAYER TURNS ROW */
+.player-turn-row {
+  width: 525px;
+  margin: 0 auto;
+  font-size: 2em;
+}
+
+#player-one, #player-two {
+  padding: 10px 45px;
+  border-radius: 5px 5px 0 0;
+  color: white;
+}
+#player-one {
+  float: left;
+  background-color: #e61919;
+}
+#player-two {
+  float: right;
+  background-color: #00bfff;
+}
 
 /* TIC TAC TOE BOARD */
 .tttOuterBox {
@@ -45,6 +65,7 @@ h3 a:hover {
   margin: 0 auto;
   padding-top: 20px;
   border-radius: 10px;
+  clear: both;
 }
 
 .tttInnerBox {

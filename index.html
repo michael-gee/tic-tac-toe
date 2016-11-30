@@ -10,6 +10,7 @@
   <!-- HEADER -->
   <header>
     <h1>Tic-Tac-Toe</h1>
+    <p id="p1-info">* One Player game functionality is not yet completed. Please select Two Player to experience functionality of the application.</p>
   </header>
 
   <!-- PLAYER TURN BOXES -->
@@ -37,7 +38,7 @@
 
       <!-- X/O CHOICE -->
       <div id="x-o" class="none">
-        <h2>Would you like to play as X or O?</h2>
+        <h2>Would P1 like to play as X or O?</h2>
         <div class="player-options">
           <div class="option-one" onclick="gameMethod.x_or_o('x')">X</div>
           <div class="option-two" onclick="gameMethod.x_or_o('o')">O</div>
@@ -49,23 +50,28 @@
       <div id="game-board" class="none">
         <!-- ROW 1 -->
         <div class="row" id="row1">
-          <div class="square" id="square1"></div>
-          <div class="square" id="square2"></div>
-          <div class="square" id="square3"></div>
+          <div onclick="singlePlayerPlay('1')" class="square" id="square1"></div>
+          <div onclick="singlePlayerPlay('2')" class="square" id="square2"></div>
+          <div onclick="singlePlayerPlay('3')" class="square" id="square3"></div>
         </div><!-- ROW 1 DIV END -->
         <!-- ROW 2 -->
         <div class="row" id="row2">
-          <div class="square" id="square4"></div>
-          <div class="square" id="square5"></div>
-          <div class="square" id="square6"></div>
+          <div onclick="singlePlayerPlay('4')" class="square" id="square4"></div>
+          <div onclick="singlePlayerPlay('5')" class="square" id="square5"></div>
+          <div onclick="singlePlayerPlay('6')" class="square" id="square6"></div>
         </div><!-- ROW 2 DIV END -->
         <!-- ROW 3 -->
         <div class="row" id="row3">
-          <div class="square" id="square7"></div>
-          <div class="square" id="square8"></div>
-          <div class="square" id="square9"></div>
+          <div onclick="singlePlayerPlay('7')" class="square" id="square7"></div>
+          <div onclick="singlePlayerPlay('8')" class="square" id="square8"></div>
+          <div onclick="singlePlayerPlay('9')" class="square" id="square9"></div>
         </div><!-- ROW 3 DIV END -->
       </div><!-- GAME BOARD DIV END -->
+
+      <div id="reset-message-div" class="none">
+        <h2 id="game-results"></h2>
+        <div id="back-button" onclick="gameMethod.x_or_o(x_o)">Play Again &#8635;</div>
+      </div>
 
     </div><!-- INNER BOX DIV END -->
 

@@ -36,6 +36,13 @@ h3 a:hover {
   color: red;
 }
 
+#p1-info {
+  width: 525px;
+  font-size: 1.8em;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
 /* PLAYER TURNS ROW */
 .player-turn-row {
   width: 525px;
@@ -158,6 +165,13 @@ h3 a:hover {
 
 #square1, #square2, #square4, #square5, #square7, #square8 {
   border-right: 5px solid #E2E6E4;
+}
+
+/* X'S AND O'S */
+.board-o, .board-x {
+  color: white;
+  font-size: 6em;
+  padding-top: 30px;
 }
 
 /* DISPLAY NONE */

@@ -7,12 +7,6 @@
   </head>
   <body>
 
-  <!-- HEADER -->
-  <header>
-    <h1>Tic-Tac-Toe</h1>
-    <p id="p1-info">* One Player game functionality is not yet completed. Please select Two Player to experience functionality of the application.</p>
-  </header>
-
   <!-- PLAYER TURN BOXES -->
   <div class="player-turn-row">
 
@@ -31,7 +25,8 @@
         <h2>How would you like to play?</h2>
         <!-- PLAYERS OPTIONS DIV -->
         <div class="player-options">
-          <div class="option-one" onclick="gameMethod.setPlayers('one')">One Player</div>
+          <!-- ONCLICK FUNCTION FOR P1 -> onclick="gameMethod.setPlayers('one')" -->
+          <div id="disable-oP" class="option-one">One Player</div>
           <div class="option-two" onclick="gameMethod.setPlayers('two')">Two Player</div>
         </div><!-- PLAYERS OPTINS DIV END -->
       </div><!-- INTRO DIV END -->
@@ -83,7 +78,7 @@
   <footer>
     <h3>Coded by <a href="https://github.com/michaelgee22" target="_blank">Michael Gee</a></h3>
   </footer>
-
+    
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="scripts/scripts.js">
 

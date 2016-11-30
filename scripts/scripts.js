@@ -1,217 +1,154 @@
-var singlePlayer, x_o,
-    playerOneTurn, computerTurn, playerTwoTurn,
-    playerOne, computer, playerTwo,
-    turns = 0, currentlyPlaying = true;
+//Current Entry String and Arr to Be Joined into String
 
-var gameMethod = (function gameSetUp(){
+//String is to hold values and keep numbers together
+var currentInput = "";
+var currentEntry = [];
+
+var calc = (function moduleF(){
+
+//AC (Clear) Button Function
+function clearInput(ac){
   
-//Hides Players tabs on top of tic tac toe box
-$("#player-one").hide();
-$("#player-two").hide();
-
-// Function that transitions Beginning question content to the next content
-function stateChange(newState, content) {
-    setTimeout(function () {
-        if (newState == -1) {
-          $(content).fadeIn(2000);
-          if(content === "#x-o"){
-           $(".player-options").css("width", "105px");
-          }else {
-            $(".player-options").css("width", "350px");
-          }
-        }
-    }, 1000);
-}
-
-// FUNCTION TO DETERMINE IF GAME IS ONE PLAYER OR TWO AND MOVES TO NEXT PAGE
-function setPlayers(numPlayers){
-  numPlayers === 'one' ? singlePlayer = true : singlePlayer = false;
-
-  $("#intro").fadeOut();
-  stateChange(-1, "#x-o");
-}
-
-// Second Question Asking User for X or O
-function x_or_o(letterChoice){
-  letterChoice === 'x' ? x_o = "x" : x_o = "o";
-
-  $("#x-o").fadeOut("fast");
-  $("#reset-message-div").fadeOut("fast");
-  stateChange(-1, "#game-board");
+  document.getElementById("input").innerHTML = 0;
+  document.getElementById("current-entry").innerHTML = 0;
   
-  if(singlePlayer === true){
-    singlePlayerSetUp();
-  } else {
-    turns = 0;
-    currentlyPlaying = true;
-    twoPlayerSetUp();
-  }
-}
+  // clear current input back to empty string (reset)
+  currentInput = "";
+  currentEntry = [];
+  
+} // clearInput() bracket end
 
-// FUNCTION THAT BINDS TO BACK BUTTON WHEN CHOOSING X OR O
-function goBack(current){
-  singlePlayer = "";
-
-  $(current).fadeOut();
-  stateChange(-1, "#intro");
-}
-
-// RESET ALL FUNCTION THAT TAKES YOU TO BEGINNING OF APPLICATION
-function reset(){
-  singlePlayer = "";
-  $("#player-one").slideUp();
-  $("#player-two").slideUp();
-
-  $("#x-o").css("display", "none");
-  $("#game-board").css("display", "none");
-  $("#reset-message-div").css("display", "none");
-  stateChange(-1, "#intro");
-}
+// Number Button Function
+function buttonPress(button) {
+  var operators = ["x", "+", "-", "/"];
+  var counter = 0;
+  var regex = /[^\S]/g;  
+  var currentButton = document.getElementById(button).innerHTML; 
+   //gets rid of all whitespace
+  currentButton = currentButton.replace(regex, "");
   
-  //Public properties and methods
-  return {
-    singlePlayer: singlePlayer,
-    x_o: x_o,
-    reset: reset,
-    goBack: goBack,
-    setPlayers: setPlayers,
-    x_or_o: x_or_o
-  };
-
+  var checkIfOperator = operators.indexOf(currentButton);
   
-})();
-
-// Generate Who gets first turn of the game 
-function generateFirstTurn(){
-  
-  let num = Math.floor(Math.random() * 2);
-  
-  if(num === 0){
-    $("#player-one").slideDown();
-    playerOneTurn = true;
-    computerTurn = false;
-    playerTwoTurn = false;
-  } else if(num === 1) {
-    $("#player-two").slideDown();
-    computerTurn = true;
-    playerTwoTurn = true;
-    playerOneTurn = false;
-  }
-  
-}
-
-//Single Player Game Set Up
-function singlePlayerSetUp(){
-  //set's Player 2's tab text to "Computer"
-  document.getElementById("compOrPlayer").textContent = "Computer's";
-  
-  if(x_o === "x"){
-    playerOne = "X";
-    computer = "O";
-    document.getElementById("player-one-letter").textContent = playerOne;
-    document.getElementById("player-two-letter").textContent = computer;
-  } else {
-    playerOne = "O";
-    computer = "X";
-    document.getElementById("player-one-letter").textContent = playerOne;
-    document.getElementById("player-two-letter").textContent = computer;
-  }
-  
-  setTimeout(generateFirstTurn, 1000);
-  
-  
-}
-
-//Two Player Game SetUp
-function twoPlayerSetUp(){
-  document.getElementById("compOrPlayer").textContent = "Player 2's";
-  
-  if(x_o === "x"){
-    playerOne = "X";
-    playerTwo = "O";
-    document.getElementById("player-one-letter").textContent = playerOne;
-    document.getElementById("player-two-letter").textContent = playerTwo;
-  } else {
-    playerOne = "O";
-    playerTwo = "X";
-    document.getElementById("player-one-letter").textContent = playerOne;
-    document.getElementById("player-two-letter").textContent = playerTwo;
-  }
-  
-  setTimeout(generateFirstTurn, 1000);
-  
-}
-
-//Game Functionality
-
-// WILL FINISH SINGLE PLAYER FUNCTIONALITY AT A LATER DATE
-function singlePlayerPlay(squareNum) { 
-  turns++;
-  
-  if(singlePlayer === false){
-    twoPlayerPlay(squareNum);
+    //DO NOT ALLOW TWO PERIODS IN A ROW
+  if(currentButton == "." && checkForTwoDecimals()){
     return false;
   }
   
+  if(currentEntry[currentEntry.length - 1] == "." && currentButton == "."){
+    return false;
+  }
+  
+  // When a number is pressed
+  if (checkIfOperator === -1) {
+    
+    if(operators.indexOf(currentEntry[currentEntry.length -1]) !== -1){    
+      currentInput = "";
+    }
+     
+    currentInput += currentButton;
+    currentEntry.push(currentButton);
+  
+    //Current Input Display
+    document.getElementById("current-entry").innerHTML = currentEntry.length === 0 ? "0" : currentEntry.join("");
+    document.getElementById("input").innerHTML = currentInput;    
+  } else { //WHEN AN OPERATOR IS PRESSED:
+      //Do Not Allow 2 operators back to back if statment
+      // OR IF operator is first button hit
+        //return false
+      if(operators.indexOf(currentEntry[currentEntry.length -1]) !== -1 || currentEntry[0] === undefined){    
+      return false;
+      }
+    
+    // operator is clears conditionals, clear current input and place operator into the current input
+    //push operator into the currentEntry array
+    currentInput = "";
+    currentInput += currentButton;
+    currentEntry.push(currentButton);
+    document.getElementById("input").innerHTML = currentButton;
+  } // else (above ^) bracket end
+  console.log(currentInput);
+} // buttonPress() function bracket end
+
+
+// CLEAR ENTRY FUNCTION
+  // ce = current entry
+function delEntry(ce){
+  if(ce[0] === undefined){
+    return false;
+  }
+  
+  // If there's only 1 number left, call the clear input function
+  if(ce.length === 1){
+    clearInput();
+    //else - delete characters one at a time
+  } else if(ce.length > 1){
+    
+    ce.pop();
+    currentInput = currentInput.split("");
+    currentInput.pop();
+    currentInput = currentInput.join("");
+    
+    if(currentInput.length === 0 ){
+      currentInput = ce.join("");
+    }
+    
+  document.getElementById("input").innerHTML = currentInput;
+  document.getElementById("current-entry").innerHTML = ce.join("");
+    
+  }
 }
 
-function twoPlayerPlay(squareNum) {
+//EQUALS FUNCTION
+  // ce = current entry 
+function equalsFunction(ce) {
+  if(ce[0] === undefined){
+    return false;
+  } 
   
-    if(playerOneTurn === true) {
-      if(playerOne === "X" && !$("#square" + squareNum).hasClass("active")){
-        document.getElementById("square" +squareNum).innerHTML = "<div class='board-x'>X</div>";
-        $("#square" + squareNum).addClass("active");
-        playerOneTurn = false;
-        playerTwoTurn = true;
-        $("#player-one").slideUp();
-        $("#player-two").slideDown();
-      } else if(playerOne === "O" & !$("#square" + squareNum).hasClass("active")){
-        document.getElementById("square" + squareNum).innerHTML = "<div class='board-o'>O</div>";
-        $("#square" + squareNum).addClass("active");
-        playerOneTurn = false;
-        playerTwoTurn = true;
-        $("#player-one").slideUp();
-        $("#player-two").slideDown();
-      }
-  } else if(playerTwoTurn === true){
-      if(playerTwo === "X" && !$("#square" + squareNum).hasClass("active")){
-        document.getElementById("square" +squareNum).innerHTML = "<div class='board-x'>X</div>";
-        $("#square" + squareNum).addClass("active");
-        playerTwoTurn = false;
-        playerOneTurn = true;
-        $("#player-two").slideUp();
-        $("#player-one").slideDown();
-      } else if(playerTwo === "O" & !$("#square" + squareNum).hasClass("active")){
-        document.getElementById("square" +squareNum).innerHTML = "<div class='board-o'>O</div>";
-        $("#square" + squareNum).addClass("active");
-        playerTwoTurn = false;
-        playerOneTurn = true;
-        $("#player-two").slideUp();
-        $("#player-one").slideDown();
-      }    
-    }
+  // If a number is divided by 0, return error
+  if(ce[ce.length - 1] == 0 && ce[ce.length - 2] == "/"){
+    document.getElementById("input").innerHTML = "Error";
+    // reset
+    currentInput = "";
+    currentEntry = [];
+    document.getElementById("current-entry").innerHTML = "0";
+    return false;
+  }
   
-    if(turns >= 9){
-      document.getElementById("game-results").innerHTML = "The Game Resulted in a Tie!";
-      currentlyPlaying = false;  
-    } 
+  //turn currentEntry array into string so it can be put into eval function to be solved
+  ce = ce.join("");
   
-    if(currentlyPlaying === false){
-      setTimeout(afterGameReset, 700);
-    }
+  //Since I used x for display, replace x with javascript * to multiply
+  ce = ce.replace("x", "*");
   
-} // TWO PLAYER PLAY FUNCTION END
-
-function afterGameReset() {
-    if(currentlyPlaying === false){
-      $("#player-one").slideUp();
-      $("#player-two").slideUp();
-      $("#game-board").addClass("none").fadeOut("slow");
-      $("#reset-message-div").fadeIn("slow");
-      for(let i = 1; i < 10; i++){
-        $("#square" + i).removeClass("active");
-        document.getElementById("square" + i).innerHTML = "";
-      }
-    }
+  //store eval result
+  var result = eval(ce);
+  
+  currentInput = result;
+  currentEntry = [result];
+  
+  document.getElementById("input").innerHTML = result;
+  document.getElementById("current-entry").innerHTML = result;
 }
-
+  
+  // Function that Does not allow for more than 2 decimals in the same number
+  function checkForTwoDecimals(){
+    var regex = /[.]{1}/g;
+    
+    if(currentInput.search(regex) > -1) {
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
+  
+return {
+  clearInput: clearInput,
+  delEntry: delEntry,
+  buttonPress: buttonPress,
+  equalsFunction: equalsFunction
+}
+  
+  
+})();

@@ -3,6 +3,11 @@ var singlePlayer, x_o,
     playerOne, computer, playerTwo,
     turns = 0, currentlyPlaying = true;
 
+//Tic-Tac Toe Board Data
+var data = [ 0, 0, 0,
+             0, 0, 0,
+             0, 0, 0 ];
+
 var gameMethod = (function gameSetUp(){
   
 //Hides Players tabs on top of tic tac toe box
@@ -36,7 +41,8 @@ function x_or_o(letterChoice){
   letterChoice === 'x' ? x_o = "x" : x_o = "o";
 
   $("#x-o").fadeOut("fast");
-  $("#reset-message-div").fadeOut("fast");
+  $("#reset-message-div").css("display", "none");
+  
   stateChange(-1, "#game-board");
   
   if(singlePlayer === true){
@@ -61,11 +67,21 @@ function reset(){
   singlePlayer = "";
   $("#player-one").slideUp();
   $("#player-two").slideUp();
+  
+  data = [ 0, 0, 0,
+             0, 0, 0,
+             0, 0, 0 ];
 
   $("#x-o").css("display", "none");
   $("#game-board").css("display", "none");
   $("#reset-message-div").css("display", "none");
   stateChange(-1, "#intro");
+  
+  $(".tttInnerBox").css("background-color", "#193028");
+  for(let i = 0; i < 9; i++){
+    $("#square" + i).removeClass("active");
+    document.getElementById("square" + i).innerHTML = "";
+  }
 }
   
   //Public properties and methods
@@ -158,18 +174,36 @@ function singlePlayerPlay(squareNum) {
 function twoPlayerPlay(squareNum) {
   
     if(playerOneTurn === true) {
+      //if playerOne chose X and clicks a square div add the X to the board and make the square unclickable for the rest of the game
       if(playerOne === "X" && !$("#square" + squareNum).hasClass("active")){
         document.getElementById("square" +squareNum).innerHTML = "<div class='board-x'>X</div>";
         $("#square" + squareNum).addClass("active");
+        
+        //Adds data to the data array and then checks the board to see if there is a winner
+        data[squareNum] = playerOne;
+        testCondition();
+        
+        //change player turns
         playerOneTurn = false;
         playerTwoTurn = true;
+        
+        //changes the tabs on the top of the Tic-tac-toe board
         $("#player-one").slideUp();
         $("#player-two").slideDown();
+        
       } else if(playerOne === "O" & !$("#square" + squareNum).hasClass("active")){
         document.getElementById("square" + squareNum).innerHTML = "<div class='board-o'>O</div>";
         $("#square" + squareNum).addClass("active");
+        
+        //Adds data to the data array and then checks the board to see if there is a winner
+        data[squareNum] = playerOne;
+        testCondition();
+        
+        //changes player's turn
         playerOneTurn = false;
         playerTwoTurn = true;
+        
+        //changes the tabs on the top of the Tic-tac-toe board
         $("#player-one").slideUp();
         $("#player-two").slideDown();
       }
@@ -177,20 +211,37 @@ function twoPlayerPlay(squareNum) {
       if(playerTwo === "X" && !$("#square" + squareNum).hasClass("active")){
         document.getElementById("square" +squareNum).innerHTML = "<div class='board-x'>X</div>";
         $("#square" + squareNum).addClass("active");
+        
+        //Adds data to the data array and then checks the board to see if there is a winner
+        data[squareNum] = playerTwo;
+        testCondition();
+        
+        //changes player's turn
         playerTwoTurn = false;
         playerOneTurn = true;
+        
+        //changes the tabs on the top of the Tic-tac-toe board
         $("#player-two").slideUp();
         $("#player-one").slideDown();
       } else if(playerTwo === "O" & !$("#square" + squareNum).hasClass("active")){
         document.getElementById("square" +squareNum).innerHTML = "<div class='board-o'>O</div>";
         $("#square" + squareNum).addClass("active");
+        
+        //Adds data to the data array and then checks the board to see if there is a winner
+        data[squareNum] = playerTwo;
+        testCondition();
+        
+        //changes player's turn
         playerTwoTurn = false;
         playerOneTurn = true;
+        
+        //changes the tabs on the top of the Tic-tac-toe board
         $("#player-two").slideUp();
         $("#player-one").slideDown();
       }    
     }
   
+    // If there has been 9 turns (board is full and no one has one) reset the game
     if(turns >= 9){
       document.getElementById("game-results").innerHTML = "The Game Resulted in a Tie!";
       currentlyPlaying = false;  
@@ -202,15 +253,72 @@ function twoPlayerPlay(squareNum) {
   
 } // TWO PLAYER PLAY FUNCTION END
 
+
+// Test If There is a Winner
+function testCondition(){
+  
+  if(
+    //across
+    data[0] === playerOne && data[1] === playerOne && data[2] === playerOne ||
+    data[3] === playerOne && data[4] === playerOne && data[5] === playerOne ||
+    data[6] === playerOne && data[7] === playerOne && data[8] === playerOne || 
+    
+    //vertical
+    data[0] === playerOne && data[3] === playerOne && data[6] === playerOne ||
+    data[1] === playerOne && data[4] === playerOne && data[7] === playerOne ||
+    data[2] === playerOne && data[5] === playerOne && data[8] === playerOne ||
+    
+    //diagonal
+    data[0] === playerOne && data[4] === playerOne && data[8] === playerOne ||
+    data[2] === playerOne && data[4] === playerOne && data[6] === playerOne
+    ){
+    
+      document.getElementById("game-results").innerHTML = "Player One Wins!";
+      currentlyPlaying = false; 
+      $(".tttInnerBox").css("background-color", "red");
+      setTimeout(afterGameReset, 3000);
+     
+     } else if(     
+    //across
+    data[0] === playerTwo && data[1] === playerTwo && data[2] === playerTwo ||
+    data[3] === playerTwo && data[4] === playerTwo && data[5] === playerTwo ||
+    data[6] === playerTwo && data[7] === playerTwo && data[8] === playerOne || 
+    
+    //vertical
+    data[0] === playerTwo && data[3] === playerTwo && data[6] === playerTwo ||
+    data[1] === playerTwo && data[4] === playerTwo && data[7] === playerTwo ||
+    data[2] === playerTwo && data[5] === playerTwo && data[8] === playerTwo ||
+    
+    //diagonal 
+    data[0] === playerTwo && data[4] === playerTwo && data[8] === playerTwo ||
+    data[2] === playerTwo && data[4] === playerTwo && data[6] === playerTwo
+    ) {
+      
+      document.getElementById("game-results").innerHTML = "Player Two Wins!";
+      currentlyPlaying = false; 
+      $(".tttInnerBox").css("background-color", "red");
+      setTimeout(afterGameReset, 3000);
+       
+      } 
+}
+
+// After Game Reset Function
 function afterGameReset() {
-    if(currentlyPlaying === false){
-      $("#player-one").slideUp();
-      $("#player-two").slideUp();
-      $("#game-board").addClass("none").fadeOut("slow");
-      $("#reset-message-div").fadeIn("slow");
-      for(let i = 1; i < 10; i++){
-        $("#square" + i).removeClass("active");
-        document.getElementById("square" + i).innerHTML = "";
-      }
-    }
+  $("#player-one").slideUp();
+  $("#player-two").slideUp();
+  $("#game-board").addClass("none").fadeOut();
+  $("#reset-message-div").fadeIn("slow");
+  
+  $(".tttInnerBox").css("background-color", "#193028");
+  
+  setTimeout($("#back-button2").fadeIn("slow"), 2000);
+  //reset data
+  data = [ 0, 0, 0,
+             0, 0, 0,
+             0, 0, 0 ];
+  
+  for(let i = 0; i < 9; i++){
+    $("#square" + i).removeClass("active");
+    document.getElementById("square" + i).innerHTML = "";
+  }
 }

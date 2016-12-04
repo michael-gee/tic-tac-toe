@@ -130,7 +130,7 @@ h3 a:hover {
   border: 3px dashed red;
 }
 
-#back-button {
+#back-button, #back-button2 {
   width: 100px;
   padding: 10px;
   margin: 0 auto;
@@ -140,7 +140,7 @@ h3 a:hover {
   margin-top: 150px;
   font-size: 2.5em;
 }
-#back-button:hover {
+#back-button:hover, #back-button2:hover {
   color: white;
   cursor: pointer;
   border: 3px dashed white;
@@ -165,11 +165,11 @@ h3 a:hover {
   cursor: pointer;
 }
 
-#square1, #square2, #square3, #square4, #square5, #square6 {
+#square0, #square1, #square2, #square3, #square4, #square5 {
   border-bottom: 5px solid #E2E6E4;
 }
 
-#square1, #square2, #square4, #square5, #square7, #square8 {
+#square0, #square1, #square3, #square4, #square6, #square7 {
   border-right: 5px solid #E2E6E4;
 }
 

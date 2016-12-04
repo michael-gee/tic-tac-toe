@@ -6,7 +6,6 @@
     <title>Tic-Tac-Toe</title>
   </head>
   <body>
-
   <!-- PLAYER TURN BOXES -->
   <div class="player-turn-row">
 
@@ -45,27 +44,27 @@
       <div id="game-board" class="none">
         <!-- ROW 1 -->
         <div class="row" id="row1">
+          <div onclick="singlePlayerPlay('0')" class="square" id="square0"></div>
           <div onclick="singlePlayerPlay('1')" class="square" id="square1"></div>
           <div onclick="singlePlayerPlay('2')" class="square" id="square2"></div>
-          <div onclick="singlePlayerPlay('3')" class="square" id="square3"></div>
         </div><!-- ROW 1 DIV END -->
         <!-- ROW 2 -->
         <div class="row" id="row2">
+          <div onclick="singlePlayerPlay('3')" class="square" id="square3"></div>
           <div onclick="singlePlayerPlay('4')" class="square" id="square4"></div>
           <div onclick="singlePlayerPlay('5')" class="square" id="square5"></div>
-          <div onclick="singlePlayerPlay('6')" class="square" id="square6"></div>
         </div><!-- ROW 2 DIV END -->
         <!-- ROW 3 -->
         <div class="row" id="row3">
+          <div onclick="singlePlayerPlay('6')" class="square" id="square6"></div>
           <div onclick="singlePlayerPlay('7')" class="square" id="square7"></div>
           <div onclick="singlePlayerPlay('8')" class="square" id="square8"></div>
-          <div onclick="singlePlayerPlay('9')" class="square" id="square9"></div>
         </div><!-- ROW 3 DIV END -->
       </div><!-- GAME BOARD DIV END -->
 
       <div id="reset-message-div" class="none">
         <h2 id="game-results"></h2>
-        <div id="back-button" onclick="gameMethod.x_or_o(x_o)">Play Again &#8635;</div>
+        <div id="back-button2" class="none" onclick="gameMethod.x_or_o(x_o)">Play Again &#8635;</div>
       </div>
 
     </div><!-- INNER BOX DIV END -->

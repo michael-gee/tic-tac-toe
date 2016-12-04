@@ -41,7 +41,7 @@ function x_or_o(letterChoice){
   letterChoice === 'x' ? x_o = "x" : x_o = "o";
 
   $("#x-o").fadeOut("fast");
-  $("#reset-message-div").css("display", "none");
+  $("#reset-message-div").addClass("none").fadeOut();
   
   stateChange(-1, "#game-board");
   
@@ -276,7 +276,7 @@ function testCondition(){
       document.getElementById("game-results").innerHTML = "Player One Wins!";
       currentlyPlaying = false; 
       $(".tttInnerBox").css("background-color", "red");
-      setTimeout(afterGameReset, 3000);
+      setTimeout(afterGameReset, 1500);
      
      } else if(     
     //across
@@ -297,7 +297,7 @@ function testCondition(){
       document.getElementById("game-results").innerHTML = "Player Two Wins!";
       currentlyPlaying = false; 
       $(".tttInnerBox").css("background-color", "red");
-      setTimeout(afterGameReset, 3000);
+      setTimeout(afterGameReset, 1500);
        
       } 
 }
@@ -311,7 +311,7 @@ function afterGameReset() {
   
   $(".tttInnerBox").css("background-color", "#193028");
   
-  setTimeout($("#back-button2").fadeIn("slow"), 2000);
+  setTimeout(buttonFadeIn, 1000);
   //reset data
   data = [ 0, 0, 0,
              0, 0, 0,
@@ -321,4 +321,8 @@ function afterGameReset() {
     $("#square" + i).removeClass("active");
     document.getElementById("square" + i).innerHTML = "";
   }
+}
+
+function buttonFadeIn() {
+  $("#back-button2").fadeIn("slow");
 }
